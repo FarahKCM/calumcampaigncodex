@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Campaign Codex</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;700;900&display=swap">
+
+<style>
+  :root {
+    --paper:       #ecdfc4;
+    --paper-2:     #dccfb0;
+    --paper-shade: #c2b390;
+    --paper-edge:  #a39068;
+    --ink:         #1f160c;
+    --ink-soft:    #4a3a2c;
+    --ink-light:   #6b5840;
+    --rule:        #9c8a63;
+    --rule-soft:   #b8a57e;
+
+    --leather:      #3e2414;
+    --leather-dark: #2a1609;
+    --leather-edge: #5a3720;
+    --leather-hi:   #6b4224;
+
+    --brass:      #9a7a2e;
+    --brass-lit:  #d4a84a;
+    --brass-dark: #5a4418;
+
+    --hope:       #c8932e;
+    --hope-lit:   #f0c85a;
+    --hope-deep:  #6a4a0d;
+    --fear:       #6b1620;
+    --fear-lit:   #a82838;
+    --fear-deep:  #2a0508;
+    --ink-red:    #7a1e1e;
+    --ink-blue:   #1e3a5f;
+    --ink-green:  #2a4a1a;
+
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --serif: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+    --display: 'IM Fell English', 'EB Garamond', Georgia, serif;
+    --display-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+    --header: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+    --numeral: 'Playfair Display', 'EB Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  body.tone-cool {
+    --paper:       #e4e0d0;
+    --paper-2:     #cfcbb9;
+    --paper-shade: #a8a48f;
+    --paper-edge:  #8a8770;
+  }
+  body.tone-cream {
+    --paper:       #f6ecd4;
+    --paper-2:     #ede0be;
+    --paper-shade: #cdbe92;
+    --paper-edge:  #a89368;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background:
+      radial-gradient(ellipse 100% 80% at 50% 30%, #2a1a10 0%, #140a06 60%, #070302 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0;
+    background-image:
+      repeating-linear-gradient(94deg, rgba(80,40,10,0.04) 0 2px, transparent 2px 7px),
+      repeating-linear-gradient(91deg, rgba(40,20,5,0.03) 0 1px, transparent 1px 9px);
+  }
+
+  /* ── BINDER FRAME ── */
+  .binder {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    background:
+      radial-gradient(ellipse at 50% 0%, #5a3720 0%, #3e2414 40%, #1a0c06 100%);
+    border-radius: 8px;
+    padding: 22px 22px 22px 34px;
+    box-shadow:
+      0 2px 0 rgba(255,200,140,0.06) inset,
+      0 -2px 0 rgba(0,0,0,0.5) inset,
+      0 0 0 1px #1a0a04,
+      0 30px 60px -20px rgba(0,0,0,0.7),
+      0 80px 140px -40px rgba(0,0,0,0.6);
+  }
+  .binder::before {
+    content:''; position: absolute; inset: 0;
+    border-radius: inherit; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,200,140,0.06) 0, transparent 25%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.3) 0, transparent 30%),
+      repeating-radial-gradient(circle at 30% 40%, rgba(0,0,0,0.06) 0 2px, transparent 2px 8px),
+      repeating-radial-gradient(circle at 70% 60%, rgba(255,200,140,0.02) 0 3px, transparent 3px 9px);
+    mix-blend-mode: overlay; opacity: 0.8;
+  }
+  .binder::after {
+    content: ''; position: absolute; inset: 0;
+    border-radius: inherit; pointer-events: none;
+    box-shadow:
+      inset 0 0 0 3px rgba(90,55,32,0.4),
+      inset 0 0 40px rgba(0,0,0,0.5);
+  }
+
+  .binder-spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 18px;
+    background: linear-gradient(90deg, #1a0c05 0%, #2a1609 30%, #3a2012 60%, #2a1609 100%);
+    border-radius: 8px 0 0 8px;
+    z-index: 2;
+    box-shadow:
+      inset -2px 0 4px rgba(0,0,0,0.5),
+      inset 2px 0 2px rgba(90,55,32,0.3);
+  }
+  .binder-spine::before, .binder-spine::after {
+    content: ''; position: absolute;
+    left: 4px; width: 10px; height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e0b858 0%, var(--brass) 50%, var(--brass-dark) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 1px rgba(0,0,0,0.3);
+  }
+  .binder-spine::before { top: 40px; }
+  .binder-spine::after  { bottom: 40px; }
+  .binder-rivet-mid {
+    position: absolute; left: 4px; top: 50%; transform: translateY(-50%);
+    width: 10px; height: 10px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #e0b858 0%, var(--brass) 50%, var(--brass-dark) 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 -1px 1px rgba(0,0,0,0.3);
+    z-index: 3;
+  }
+
+  .binder-plate {
+    position: absolute;
+    top: -8px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(180deg, #d4a84a 0%, #9a7a2e 60%, #6a5220 100%);
+    color: #1a1008;
+    font-family: var(--display-sc);
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    padding: 7px 28px 6px;
+    border-radius: 2px;
+    box-shadow:
+      0 1px 0 rgba(255,240,180,0.5) inset,
+      0 -1px 0 rgba(0,0,0,0.3) inset,
+      0 3px 6px rgba(0,0,0,0.5),
+      0 0 0 1px #3a2a10;
+    z-index: 5;
+    white-space: nowrap;
+  }
+
+  .binder-interior {
+    position: relative;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    min-height: 820px;
+    z-index: 1;
+  }
+
+  .tab-column {
+    position: relative;
+    padding: 28px 0 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .binder-title {
+    padding: 0 22px 18px 14px;
+    color: #e8d5a8;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 30px;
+    line-height: 1.1;
+    border-bottom: 1px solid rgba(210,170,100,0.2);
+    margin-bottom: 16px;
+  }
+
+  .search-wrap {
+    padding: 0 14px 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .search {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(210,170,100,0.22);
+    color: #e8d5a8;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 8px 10px;
+    border-radius: 2px;
+    outline: none;
+  }
+  .search:focus { border-color: var(--brass-lit); }
+  .search::placeholder { color: rgba(232,213,168,0.35); text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; }
+
+  .tab-list { list-style: none; margin: 0; padding: 0; }
+
+  .cat-tab {
+    position: relative;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px 10px 18px;
+    cursor: pointer;
+    color: #e8d5a8;
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    user-select: none;
+    transition: background 150ms, color 150ms;
+  }
+  .cat-tab:hover { background: rgba(255,220,160,0.06); }
+  .cat-tab.open {
+    background: linear-gradient(90deg, rgba(236,223,196,0.05) 0%, rgba(236,223,196,0.2) 100%);
+    color: #fff3d4;
+  }
+  .cat-tab .chev {
+    width: 10px; height: 10px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform 220ms;
+    opacity: 0.6;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .cat-tab.open .chev { transform: rotate(45deg); }
+  .cat-tab .count {
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.1em;
+    color: rgba(232,213,168,0.5);
+    margin-left: 4px;
+  }
+
+  .tab-sigil {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #d4a84a 0%, #8a6a22 60%, #4a3410 100%);
+    border: 1px solid #2a1c08;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,240,180,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #1a0e04;
+    flex-shrink: 0;
+  }
+  .tab-sigil svg { width: 18px; height: 18px; }
+
+  .creature-list {
+    list-style: none; margin: 0;
+    padding: 4px 0 8px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 280ms ease;
+  }
+  .cat-tab + .creature-list.open { max-height: 4000px; }
+
+  .creature-item {
+    position: relative;
+    padding: 6px 14px 6px 42px;
+    font-family: var(--serif);
+    font-size: 15px;
+    color: rgba(232,213,168,0.8);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    border-left: 2px solid transparent;
+    transition: background 120ms, color 120ms;
+  }
+  .creature-item:hover { background: rgba(255,220,160,0.04); color: #fff3d4; }
+  .creature-item.active {
+    color: #fff3d4;
+    background: linear-gradient(90deg, rgba(255,220,160,0.02) 0%, rgba(255,220,160,0.18) 100%);
+    border-left-color: var(--brass-lit);
+  }
+  .creature-item .ci-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(232,213,168,0.35); flex-shrink: 0;
+  }
+  .creature-item.active .ci-dot { background: var(--brass-lit); box-shadow: 0 0 6px var(--brass-lit); }
+
+  .btn-new {
+    background: rgba(212,168,74,0.12);
+    border: 1px solid rgba(212,168,74,0.35);
+    color: #e8d5a8;
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    padding: 9px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 150ms, color 150ms;
+  }
+  .btn-new:hover { background: rgba(212,168,74,0.25); color: #fff3d4; }
+
+  /* ── RIGHT: PARCHMENT PAGE ── */
+  .page-wrap { position: relative; padding: 0 8px 0 18px; }
+  .page {
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255,240,200,0.4) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(120,80,30,0.12) 0%, transparent 50%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+    border: 1px solid var(--paper-edge);
+    border-radius: 2px;
+    min-height: 820px;
+    padding: 38px 54px 48px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.4) inset,
+      0 0 0 1px rgba(0,0,0,0.04) inset,
+      -8px 0 20px -8px rgba(0,0,0,0.5),
+      0 6px 14px -4px rgba(0,0,0,0.3);
+  }
+  .page::before {
+    content: ''; position: absolute; inset: 0;
+    pointer-events: none; border-radius: inherit;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(120,80,40,0.05) 0, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(60,40,20,0.06) 0, transparent 40%),
+      radial-gradient(circle at 30% 80%, rgba(120,80,40,0.04) 0, transparent 30%),
+      repeating-linear-gradient(92deg, rgba(120,80,40,0.02) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(3deg, rgba(60,40,20,0.018) 0 1px, transparent 1px 4px);
+    mix-blend-mode: multiply; opacity: 0.9;
+    z-index: 0;
+  }
+  .page::after {
+    content: ''; position: absolute; inset: 0;
+    pointer-events: none; border-radius: inherit;
+    box-shadow: inset 0 0 80px rgba(70,40,10,0.18);
+    z-index: 0;
+  }
+  .page > * { position: relative; z-index: 2; }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    display: grid;
+    grid-template-columns: 88px 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: -5px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .page-portrait {
+    width: 88px; height: 88px;
+    border-radius: 3px;
+    position: relative;
+    background: linear-gradient(180deg, #3a2614 0%, #2a1808 60%, #140a04 100%);
+    border: 2px solid var(--ink);
+    box-shadow:
+      inset 0 2px 4px rgba(255,220,160,0.15),
+      inset 0 -2px 4px rgba(0,0,0,0.4),
+      0 2px 4px rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brass-lit);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .page-portrait:hover {
+    border-color: var(--brass);
+    box-shadow:
+      inset 0 2px 4px rgba(255,220,160,0.25),
+      inset 0 -2px 4px rgba(0,0,0,0.4),
+      0 2px 8px rgba(0,0,0,0.4);
+  }
+  .page-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .portrait-upload-hint {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.55);
+    color: var(--paper);
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    padding: 3px 0 2px;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+  .page-portrait:hover .portrait-upload-hint { opacity: 1; }
+  .portrait-clear, .portrait-replace, .portrait-expand {
+    position: absolute;
+    width: 22px; height: 22px;
+    line-height: 1; padding: 0;
+    border: none;
+    background: rgba(0,0,0,0.65);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 13px;
+    cursor: pointer; border-radius: 2px;
+    opacity: 0;
+    transition: opacity 150ms, background 150ms;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .portrait-clear { top: 4px; right: 4px; font-size: 16px; }
+  .portrait-replace { top: 4px; left: 4px; }
+  .portrait-expand { bottom: 22px; right: 4px; }
+  .page-portrait:hover .portrait-clear,
+  .page-portrait:hover .portrait-replace,
+  .page-portrait:hover .portrait-expand { opacity: 1; }
+  .portrait-clear:hover { background: var(--fear); }
+  .portrait-replace:hover, .portrait-expand:hover { background: var(--brass-dark); color: var(--brass-lit); }
+
+  /* Portrait lightbox */
+  .portrait-lightbox {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px;
+    animation: lb-fade 200ms ease;
+  }
+  @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+  .lightbox-stage {
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 18px;
+  }
+  .lightbox-stage img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border: 3px solid var(--brass);
+    border-radius: 3px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,0,0,0.6);
+  }
+  .lightbox-caption {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 30px;
+    color: var(--paper);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    letter-spacing: 0.02em;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(212,168,74,0.4);
+    background: rgba(0,0,0,0.5);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 2px;
+    line-height: 1;
+  }
+  .lightbox-close:hover { background: var(--fear); border-color: var(--fear); }
+
+  .page-name {
+    font-family: var(--display);
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .page-subline {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .page-subline .bullet { margin: 0 8px; opacity: 0.4; }
+
+  .page-actions { display: flex; gap: 6px; align-items: center; }
+  .page-action {
+    background: transparent;
+    border: 1px solid var(--ink-light);
+    color: var(--ink-soft);
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 150ms, color 150ms;
+  }
+  .page-action:hover { background: var(--ink); color: var(--paper); }
+  .page-action.danger:hover { background: var(--fear); color: var(--paper); border-color: var(--fear); }
+  .page-action.primary { background: var(--ink); color: var(--paper); }
+  .page-action.primary:hover { background: #000; }
+
+  /* ── BANNER (Faction / Location image) ── */
+  .codex-banner {
+    position: relative;
+    margin-bottom: 22px;
+    border-radius: 3px;
+    border: 2px solid var(--ink);
+    background:
+      linear-gradient(180deg, #3a2614 0%, #2a1808 60%, #140a04 100%);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow:
+      inset 0 2px 4px rgba(255,220,160,0.1),
+      inset 0 -2px 4px rgba(0,0,0,0.4),
+      0 3px 8px rgba(0,0,0,0.3);
+  }
+  .codex-banner.has-img:hover { border-color: var(--brass); }
+  .codex-banner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .banner-empty {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    color: var(--brass-lit);
+    background-image:
+      repeating-linear-gradient(45deg, rgba(212,168,74,0.04) 0 8px, transparent 8px 16px);
+  }
+  .banner-hint {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: rgba(232,213,168,0.65);
+  }
+  .codex-banner.has-img .banner-empty { display: none; }
+  .banner-clear {
+    position: absolute; top: 8px; right: 8px;
+    width: 24px; height: 24px;
+    line-height: 1; padding: 0;
+    border: none;
+    background: rgba(0,0,0,0.65);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+  .codex-banner:hover .banner-clear { opacity: 1; }
+  .banner-clear:hover { background: var(--fear); }
+
+  /* ── SECTIONS ── */
+  .section { margin-top: 28px; }
+  .section-head {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-head::after {
+    content: '❦';
+    color: var(--rule);
+    font-size: 11px;
+    margin-left: auto;
+  }
+
+  .description {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 0 6px;
+    text-wrap: pretty;
+  }
+
+  /* Character particulars grid */
+  .char-fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    background: rgba(30,15,5,0.03);
+  }
+  .char-field {
+    padding: 12px 16px;
+    border-right: 1px solid var(--rule);
+  }
+  .char-field:last-child { border-right: 0; }
+  .char-field label {
+    display: block;
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .char-value {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  /* Feature-style boxes (Points of Interest, Encounter Log) */
+  .features { display: flex; flex-direction: column; gap: 12px; }
+  .feature {
+    position: relative;
+    padding: 10px 12px 12px 14px;
+    background: rgba(120,80,30,0.04);
+    border-left: 3px solid var(--ink);
+  }
+  .feature-name {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .feature-text {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  .feature.feature-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(120,80,30,0.07);
+  }
+  .edit-feature-name {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--rule);
+    padding: 2px 0;
+    outline: none;
+  }
+  .edit-feature-name:focus { border-bottom-color: var(--ink); }
+  .edit-remove-btn {
+    align-self: flex-end;
+    background: transparent;
+    border: 1px solid var(--ink-light);
+    color: var(--ink-soft);
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .edit-remove-btn:hover { background: var(--fear); color: var(--paper); border-color: var(--fear); }
+  .edit-add-btn {
+    background: rgba(30,22,12,0.06);
+    border: 1px dashed var(--rule);
+    color: var(--ink-soft);
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    padding: 8px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background 150ms, color 150ms;
+  }
+  .edit-add-btn:hover { background: var(--ink); color: var(--paper); border-style: solid; }
+
+  /* Edit fields */
+  textarea.edit-field, input.edit-field {
+    width: 100%;
+    background: rgba(255,250,230,0.3);
+    border: 1px dashed var(--rule);
+    border-radius: 2px;
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--ink);
+    padding: 8px 10px;
+    line-height: 1.55;
+    outline: none;
+  }
+  textarea.edit-field { min-height: 60px; resize: vertical; }
+  textarea.edit-field:focus, input.edit-field:focus {
+    border-color: var(--ink);
+    background: rgba(255,250,230,0.5);
+  }
+
+  .edit-name-input {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 40px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--rule);
+    color: var(--ink);
+    outline: none;
+    padding: 0 2px 2px;
+    width: 100%;
+    max-width: 520px;
+  }
+  .edit-name-input:focus { border-bottom-color: var(--ink); }
+
+  /* ── LINKED ENTRIES ── */
+  .linked-list { display: flex; flex-direction: column; gap: 10px; }
+  .linked-empty {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-light);
+    padding: 4px 6px;
+  }
+  .linked-chips {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .linked-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 6px 10px;
+    background: rgba(255,250,230,0.3);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--ink);
+    border-radius: 2px;
+  }
+  .linked-chip.missing { border-left-color: var(--ink-light); opacity: 0.85; }
+  .linked-chip-name {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-style: italic;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink-red);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: rgba(122,30,30,0.4);
+    text-underline-offset: 3px;
+  }
+  .linked-chip-name:hover { color: var(--fear); text-decoration-color: var(--fear); }
+  .linked-chip-name.dim {
+    color: var(--ink-light);
+    text-decoration: none;
+    cursor: default;
+    font-style: italic;
+  }
+  .linked-chip-name.dim::after {
+    content: ' (not yet in codex)';
+    font-size: 11px;
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .link-arrow {
+    font-size: 11px;
+    opacity: 0.6;
+    font-style: normal;
+  }
+  .linked-chip-note {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-style: italic;
+    flex: 1;
+  }
+  .linked-chip-note-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--rule);
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-soft);
+    padding: 2px 0;
+    outline: none;
+    min-width: 100px;
+  }
+  .linked-chip-note-input:focus { border-bottom-color: var(--ink); }
+  .linked-chip-x {
+    background: transparent;
+    border: none;
+    color: var(--ink-light);
+    font-family: var(--mono);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .linked-chip-x:hover { color: var(--fear); }
+
+  .linked-add {
+    display: grid;
+    grid-template-columns: minmax(160px, 1fr) minmax(160px, 2fr) auto;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .linked-add input {
+    font-family: var(--serif);
+    font-size: 14px;
+    background: rgba(255,250,230,0.3);
+    border: 1px dashed var(--rule);
+    padding: 6px 8px;
+    color: var(--ink);
+    outline: none;
+    border-radius: 2px;
+  }
+  .linked-add input:focus { border-color: var(--ink); }
+  .linked-add button {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 8px 16px;
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .linked-add button:hover { background: #000; }
+
+  .adv-hint {
+    margin-top: 8px;
+    padding: 0 6px;
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    padding: 80px 40px;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+  .empty-state h2 {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 38px;
+    font-weight: 400;
+    margin: 20px 0 8px;
+    color: var(--ink);
+  }
+  .empty-state p {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-style: italic;
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .empty-sigil {
+    width: 100px; height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(60,40,15,0.2) 0%, rgba(30,20,8,0.1) 100%);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--rule);
+    color: var(--ink-light);
+    font-family: var(--display);
+    font-size: 54px;
+    font-style: italic;
+  }
+
+  /* ── KIND PICKER MODAL ── */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,5,2,0.7);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal {
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+    border: 1px solid var(--paper-edge);
+    width: min(640px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 3px;
+    padding: 32px 40px 28px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .modal h2 {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .modal .sub {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    margin-top: 10px;
+  }
+  .modal-actions button {
+    font-family: var(--header);
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    padding: 9px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid var(--ink);
+  }
+  .modal-actions .cancel { background: transparent; color: var(--ink); }
+  .modal-actions .cancel:hover { background: var(--ink); color: var(--paper); }
+
+  .kind-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .kind-card {
+    background: rgba(255,250,230,0.4);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 22px 14px 18px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: background 150ms, border-color 150ms, transform 100ms;
+  }
+  .kind-card:hover {
+    background: rgba(255,250,230,0.7);
+    border-color: var(--ink);
+  }
+  .kind-card:active { transform: translateY(1px); }
+  .kind-sigil {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #d4a84a 0%, #8a6a22 60%, #4a3410 100%);
+    border: 1px solid #2a1c08;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,240,180,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: #1a0e04;
+  }
+  .kind-name {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--ink);
+  }
+  .kind-sub {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.3;
+  }
+
+  /* ── TWEAKS PANEL ── */
+  .tweaks {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: rgba(20,12,6,0.92);
+    border: 1px solid rgba(212,168,74,0.3);
+    border-radius: 3px;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    z-index: 90;
+    width: 220px;
+    display: none;
+  }
+  .tweaks.on { display: block; }
+  .tweaks h4 {
+    margin: 0 0 10px; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(239,231,214,0.55);
+    border-bottom: 1px solid rgba(239,231,214,0.12);
+    padding-bottom: 8px;
+  }
+  .tweak-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 0;
+    gap: 12px;
+  }
+  .tweak-row label {
+    color: rgba(239,231,214,0.7);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .tweak-row select {
+    font-family: var(--mono); font-size: 10px;
+    background: rgba(239,231,214,0.06);
+    border: 1px solid rgba(239,231,214,0.15);
+    color: var(--paper);
+    padding: 4px 8px;
+    border-radius: 1px;
+    cursor: pointer;
+  }
+
+  .dimmed { color: var(--ink-light); font-style: italic; }
+
+  @media (max-width: 980px) {
+    .binder-interior { grid-template-columns: 220px 1fr; }
+    .page { padding: 28px 30px 36px; }
+    .char-fields { grid-template-columns: 1fr 1fr; }
+    .char-field { border-bottom: 1px solid var(--rule); }
+    .char-field:nth-child(2n) { border-right: 0; }
+    .char-field:last-child { border-bottom: 0; }
+    .kind-grid { grid-template-columns: 1fr; }
+    .linked-add { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    body { padding: 10px; }
+    .binder { padding: 18px 14px 18px 28px; }
+    .binder-interior { grid-template-columns: 1fr; }
+    .tab-column { border-bottom: 1px solid rgba(210,170,100,0.2); }
+    .page-wrap { padding: 14px 0 0; }
+    .page-header { grid-template-columns: 56px 1fr; }
+    .page-actions { grid-column: 1 / -1; }
+    .page-name { font-size: 30px; }
+  }
+</style>
+</head>
+<body class="tone-warm">
+
+
+
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js"></script>
+
+<script>
+
+// ── Firebase boot loader ──
+// Order of operations:
+//   1. Show password gate.
+//   2. On correct password → Firebase anonymous sign-in.
+//   3. After auth → load codex doc from Firestore → seed window.__codexInitialState.
+//   4. Render the React app.
+//   5. Subsequent saves are debounced and pushed to Firestore.
+//   6. Image uploads go through Cloud Storage (window.__codexUploadImage).
+
+(function () {
+  const APP_PASSWORD = 'owlbear';
+  const firebaseConfig = {
+  apiKey: "AIzaSyAVNnubpqdKySCHocn0hfI1LIk9vXW4zL0",
+  authDomain: "daggerheart-a6790.firebaseapp.com",
+  projectId: "daggerheart-a6790",
+  storageBucket: "daggerheart-a6790.firebasestorage.app",
+  messagingSenderId: "431992179499",
+  appId: "1:431992179499:web:a12dd76d0d7b06625e136e"
+};
+  const CODEX_DOC_PATH = ['codex', 'main'];   // single-doc store
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+  const codexDoc = db.collection(CODEX_DOC_PATH[0]).doc(CODEX_DOC_PATH[1]);
+
+  // ── Image upload helper (used by CodexPortrait / CodexBanner) ──
+  window.__codexUploadImage = async function (file, entryId) {
+    const safeName = (file.name || 'image').replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `codex-images/${entryId}-${Date.now()}-${safeName}`;
+    const ref = storage.ref(path);
+    const snap = await ref.put(file, { contentType: file.type });
+    return await snap.ref.getDownloadURL();
+  };
+
+  // ── Debounced cloud save ──
+  let saveTimer = null;
+  let pendingSave = null;
+  window.__codexSaveToCloud = function (state) {
+    pendingSave = state;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      const toWrite = pendingSave;
+      pendingSave = null;
+      // Use set() to overwrite the whole doc.
+      codexDoc.set(toWrite).catch(err => {
+        console.error('[codex] cloud save failed:', err);
+        // Surface a quiet hint in the corner (don't spam alerts).
+        showSaveError(err);
+      });
+    }, 800);
+  };
+
+  function showSaveError(err) {
+    let el = document.getElementById('__codex_save_err');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = '__codex_save_err';
+      el.style.cssText = 'position:fixed;bottom:12px;right:12px;background:#5c2b2e;color:#ffd0d0;padding:8px 14px;border-radius:8px;font:12px/1.4 -apple-system,sans-serif;z-index:99999;max-width:340px;';
+      document.body.appendChild(el);
+    }
+    el.textContent = 'Cloud save failed (' + (err.code || err.message) + '). Changes still saved locally.';
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 6000);
+  }
+
+  // ── Load initial state and start the app ──
+  async function loadAndStart() {
+    try {
+      const snap = await codexDoc.get();
+      window.__codexInitialState = snap.exists ? snap.data() : null;
+    } catch (err) {
+      console.error('[codex] cloud load failed:', err);
+      // Fallback: let loadCodexState read from localStorage.
+      window.__codexInitialState = undefined;
+    }
+    window.__codexReady = true;
+    if (window.__codexRender) window.__codexRender();
+  }
+
+  // ── Password gate UI ──
+  function showGate() {
+    const gate = document.createElement('div');
+    gate.id = '__codex_gate';
+    gate.style.cssText = 'position:fixed;inset:0;background:#3e2414;display:flex;align-items:center;justify-content:center;z-index:99998;font-family:-apple-system,BlinkMacSystemFont,sans-serif;';
+    gate.innerHTML = `
+      <div style="background:#ecdfc4;color:#1f160c;padding:32px 36px;border-radius:6px;box-shadow:0 8px 32px rgba(0,0,0,0.4);max-width:340px;width:90%;text-align:center;border:1px solid #a39068;">
+        <div style="font:600 22px/1.2 'Cormorant Garamond',Georgia,serif;margin-bottom:6px;">The Campaign Codex</div>
+        <div style="font:13px/1.4 -apple-system,sans-serif;color:#6b5840;margin-bottom:20px;">Enter the keyword to open the codex.</div>
+        <input id="__codex_pwd" type="password" autocomplete="off" placeholder="keyword"
+               style="width:100%;padding:10px 12px;border:1px solid #a39068;border-radius:4px;background:#fff;font:14px -apple-system,sans-serif;margin-bottom:12px;box-sizing:border-box;" />
+        <button id="__codex_pwd_btn"
+                style="width:100%;padding:10px 12px;background:#3e2414;color:#ecdfc4;border:none;border-radius:4px;font:600 14px -apple-system,sans-serif;cursor:pointer;">Enter</button>
+        <div id="__codex_pwd_err" style="margin-top:10px;color:#a23;font:12px -apple-system,sans-serif;min-height:16px;"></div>
+      </div>
+    `;
+    document.body.appendChild(gate);
+
+    const input = document.getElementById('__codex_pwd');
+    const btn = document.getElementById('__codex_pwd_btn');
+    const err = document.getElementById('__codex_pwd_err');
+    input.focus();
+
+    async function tryEnter() {
+      err.textContent = '';
+      if (input.value !== APP_PASSWORD) {
+        err.textContent = 'Not the right keyword.';
+        input.select();
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Opening…';
+      try {
+        await auth.signInAnonymously();
+        await loadAndStart();
+        gate.parentNode.removeChild(gate);
+      } catch (e) {
+        err.textContent = 'Sign-in failed: ' + (e.code || e.message);
+        btn.disabled = false;
+        btn.textContent = 'Enter';
+      }
+    }
+    btn.addEventListener('click', tryEnter);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryEnter(); });
+  }
+
+  // Wait until DOM is ready before injecting the gate.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showGate);
+  } else {
+    showGate();
+  }
+})();
+
+</script>
+
+<script>
+// Starter content for the Campaign Codex.
+// Three entry kinds: characters, factions, locations.
+// Mirrors the Adversary Binder's heraldic-sigil approach.
+
+window.CODEX_HERALDIC = {
+  Character: `<g fill="currentColor">
+    <circle cx="32" cy="22" r="9"/>
+    <path d="M14 50 C 14 38 22 32 32 32 C 42 32 50 38 50 50 L50 54 L14 54 Z"/>
+  </g>`,
+  Faction: `<g fill="currentColor">
+    <path d="M16 10 L48 10 L48 44 L32 54 L16 44 Z"/>
+    <path d="M22 18 L42 18 L42 40 L32 46 L22 40 Z" fill="#efe7d6" opacity="0.18"/>
+    <path d="M28 22 L36 22 L36 30 L32 34 L28 30 Z" fill="#efe7d6"/>
+  </g>`,
+  Location: `<g fill="currentColor">
+    <path d="M10 48 L22 28 L30 38 L40 22 L54 48 Z"/>
+    <circle cx="44" cy="18" r="4"/>
+    <path d="M14 48 L54 48" stroke="#efe7d6" stroke-width="1.2" opacity="0.4" fill="none"/>
+  </g>`,
+};
+
+// Sample seeds — small, illustrative; user can edit/remove.
+window.CODEX_STARTER_CHARACTERS = [
+  {
+    id: 'ch-mira',
+    kind: 'Character',
+    name: 'Mira Thornroot',
+    age: '34',
+    ancestry: 'Half-elf',
+    occupation: 'Innkeeper of the Salted Stag',
+    portrait: null,
+    backstory:
+      'Runs the only inn in Ashbrook with an iron hand and a soft laugh. Lost her brother to a bandit raid five winters past — keeps his sword above the hearth. Knows every traveler by name, and which of them owe her coin.',
+    relations: [
+      { name: 'Old Hen Wyn', note: 'her late mother\'s closest friend' },
+      { name: 'Cael Vance', note: 'sweet on him, won\'t admit it' },
+    ],
+    factions: [
+      { name: 'The Lantern Circle', note: 'sympathetic; harbors them' },
+    ],
+    locations: [
+      { name: 'Ashbrook', note: 'runs the Salted Stag here' },
+    ],
+    notes:
+      'Knows about the smuggling tunnel beneath the cellar. Will not betray a guest unless the guest threatens a child.',
+  },
+  {
+    id: 'ch-cael',
+    kind: 'Character',
+    name: 'Cael Vance',
+    age: '41',
+    ancestry: 'Human',
+    occupation: 'Captain of the Ashbrook Watch',
+    portrait: null,
+    backstory:
+      'A weary, capable veteran of the Border Wars. Walks with a limp from a goblin spear and drinks his lunch at the Salted Stag. He is the only law in town that the bandits respect.',
+    relations: [
+      { name: 'Mira Thornroot', note: 'old friend; unspoken affection' },
+      { name: 'Sergeant Halla', note: 'his second; trusts her with his life' },
+    ],
+    factions: [
+      { name: 'Ashbrook Watch', note: 'commanding officer' },
+    ],
+    locations: [
+      { name: 'Ashbrook', note: 'keeps watch from the Old Watchhouse' },
+    ],
+    notes:
+      'Took bribes once, eight years ago. Hasn\'t since. Will help the party if they prove honorable — but won\'t step outside the law.',
+  },
+  {
+    id: 'ch-vexa',
+    kind: 'Character',
+    name: 'Vexa the Jackdaw',
+    age: '29',
+    ancestry: 'Tiefling',
+    occupation: 'Information broker',
+    portrait: null,
+    backstory:
+      'Operates out of a back room above the Crooked Coin. Wears a silver mask shaped like a bird. Trades in secrets the way other people trade in coin — and her ledger is rumored to know the names of three nobles\' bastards.',
+    relations: [
+      { name: 'The Whisper-King', note: 'her absent patron' },
+    ],
+    factions: [
+      { name: 'The Black Tally', note: 'mid-rank; runs the Ashbrook cell' },
+    ],
+    locations: [
+      { name: 'Ashbrook', note: 'a back room above the Crooked Coin' },
+    ],
+    notes:
+      'She wants the players in her debt, not the other way around. First favor is always free; the second has teeth.',
+  },
+];
+
+window.CODEX_STARTER_FACTIONS = [
+  {
+    id: 'fa-lantern',
+    kind: 'Faction',
+    name: 'The Lantern Circle',
+    image: null,
+    description:
+      'A loose, half-secret network of healers, hedge-witches, and sympathetic clergy who shelter those the crown has marked. They light a single shuttered lantern in their windows on moonless nights.',
+    operates: [
+      { name: 'Ashbrook', note: 'main cell; shuttered lanterns in the windows' },
+    ],
+    members: [
+      { name: 'Mira Thornroot', note: 'shelters runners in the Salted Stag cellar' },
+    ],
+    notes:
+      'They will trust the party only after the party has bled for someone the Circle was protecting. Until then, polite distance.',
+  },
+  {
+    id: 'fa-tally',
+    kind: 'Faction',
+    name: 'The Black Tally',
+    image: null,
+    description:
+      'A thieves\' guild with a long memory and an accountant\'s patience. They do not steal for thrill; they steal because debts must be paid, and the Tally is who you go to when the lawful courts have failed you.',
+    operates: [
+      { name: 'Ashbrook', note: 'cell of five; ledger-keeper above the Crooked Coin' },
+    ],
+    members: [
+      { name: 'Vexa the Jackdaw', note: 'Ashbrook ledger-keeper' },
+    ],
+    notes:
+      'Their gold is good and their contracts are clear. The price is always paid in kind — never in coin alone.',
+  },
+];
+
+window.CODEX_STARTER_LOCATIONS = [
+  {
+    id: 'lo-ashbrook',
+    kind: 'Location',
+    name: 'Ashbrook',
+    image: null,
+    description:
+      'A grey-stone river town of perhaps six hundred souls, half a day\'s ride from the King\'s Road. The river Tay runs through its heart, spanned by a single arched bridge older than the town itself. Smoke rises always from the smithy and from the Salted Stag\'s chimney.',
+    pointsOfInterest: [
+      { name: 'The Salted Stag', text: 'The town\'s only inn. A long oak common-room, a hearth that never quite goes out, and a cellar with a door the proprietress never mentions.' },
+      { name: 'The Bridge of Saints', text: 'Pre-imperial stonework, carved with weather-smoothed faces. Local legend says the saints turn their heads when the innocent cross at midnight.' },
+      { name: 'The Crooked Coin', text: 'A gambling house with rooms above. The dice are honest; the proprietor is not.' },
+      { name: 'The Old Watchhouse', text: 'A squat stone keep on the north bank. Captain Vance\'s office, three holding cells, and a ledger of every traveler through the gate this season.' },
+    ],
+    loot:
+      'The cellar of the Salted Stag conceals a small smuggler\'s cache: 40gp in mixed coin, three sealed letters bearing a noble cipher, and a vial of moon-thistle worth 80gp to an alchemist.',
+    characters: [
+      { name: 'Mira Thornroot', note: 'innkeeper' },
+      { name: 'Cael Vance', note: 'captain of the watch' },
+      { name: 'Vexa the Jackdaw', note: 'above the Crooked Coin' },
+    ],
+    factions: [
+      { name: 'The Lantern Circle', note: 'cell active in the Stag' },
+      { name: 'The Black Tally', note: 'small cell, run by Vexa' },
+      { name: 'Ashbrook Watch', note: 'twelve sworn, plus Vance' },
+    ],
+    adversaries: [
+      { name: 'Black Fen Bandits', note: 'rumored to use a tunnel beneath the bridge' },
+      { name: 'Dire Wolf', note: 'sightings on the north road after dusk' },
+    ],
+    notes:
+      'If the players push hard against the Tally, Vexa will leave town within a day — and not return. Mira will not forgive them for that.',
+    encounters: [
+      { name: 'Session 04 — The Tay Bridge', text: 'Party arrived at dusk; met by Sergeant Halla. Brief tense exchange about the bandit raid two nights prior. Resolved with a shared drink at the Stag.' },
+      { name: 'Session 06 — The Cellar Door', text: 'Mira revealed the cache after the rogue saved a Lantern runner. The party now knows the cellar exists; she has not yet shown them the tunnel beyond.' },
+    ],
+  },
+];
+
+// Convenience: get all entries, regardless of kind.
+window.CODEX_STARTER_ALL = function () {
+  return [
+    ...window.CODEX_STARTER_CHARACTERS,
+    ...window.CODEX_STARTER_FACTIONS,
+    ...window.CODEX_STARTER_LOCATIONS,
+  ];
+};
+
+</script>
+<script type="text/babel">
+/* Shared components for the Campaign Codex.
+ * Mirrors binder-parts.jsx style.
+ */
+const { useState: cuS, useEffect: cuE, useRef: cuR } = React;
+
+// ── Heraldic icon for the three codex kinds ──
+function CodexHeraldic({ kind, size = 40 }) {
+  const inner = (window.CODEX_HERALDIC && window.CODEX_HERALDIC[kind]) || window.CODEX_HERALDIC.Character;
+  return (
+    <svg viewBox="0 0 64 64" width={size} height={size} dangerouslySetInnerHTML={{ __html: inner }} />
+  );
+}
+
+// ── Square portrait (for Characters) — click to expand, button to upload ──
+function CodexPortrait({ entry, onUpload, onClear }) {
+  const inputRef = cuR(null);
+  const [expanded, setExpanded] = cuS(false);
+  function onFile(e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    if (window.__codexUploadImage) {
+      window.__codexUploadImage(f, entry.id || 'misc')
+        .then(url => onUpload(url))
+        .catch(err => { console.error('Upload failed', err); alert('Image upload failed: ' + err.message); });
+    } else {
+      const r = new FileReader();
+      r.onload = (ev) => onUpload(ev.target.result);
+      r.readAsDataURL(f);
+    }
+    e.target.value = '';
+  }
+  cuE(() => {
+    if (!expanded) return;
+    function onKey(e) { if (e.key === 'Escape') setExpanded(false); }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [expanded]);
+  const has = !!entry.portrait;
+  return (
+    <>
+      <div
+        className="page-portrait"
+        onClick={() => has ? setExpanded(true) : (inputRef.current && inputRef.current.click())}
+        title={has ? 'Click to expand' : 'Click to upload'}
+      >
+        {has ? (
+          <>
+            <img src={entry.portrait} alt={entry.name} />
+            <button
+              className="portrait-expand"
+              onClick={(e) => { e.stopPropagation(); setExpanded(true); }}
+              title="Show to players"
+              aria-label="Expand portrait"
+            >⛶</button>
+            <button
+              className="portrait-replace"
+              onClick={(e) => { e.stopPropagation(); inputRef.current && inputRef.current.click(); }}
+              title="Replace portrait"
+              aria-label="Replace portrait"
+            >↻</button>
+            <button
+              className="portrait-clear"
+              onClick={(e) => { e.stopPropagation(); if (confirm('Remove the portrait?')) onClear(); }}
+              title="Remove portrait"
+            >×</button>
+          </>
+        ) : (
+          <>
+            <CodexHeraldic kind={entry.kind} size={56} />
+            <div className="portrait-upload-hint">Upload</div>
+          </>
+        )}
+        <input ref={inputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={onFile} />
+      </div>
+      {expanded && has && (
+        <div className="portrait-lightbox" onClick={() => setExpanded(false)}>
+          <button
+            className="lightbox-close"
+            onClick={(e) => { e.stopPropagation(); setExpanded(false); }}
+            aria-label="Close"
+            title="Close (Esc)"
+          >×</button>
+          <div className="lightbox-stage" onClick={e => e.stopPropagation()}>
+            <img src={entry.portrait} alt={entry.name} />
+            <div className="lightbox-caption">{entry.name}</div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ── Wide image banner (for Factions / Locations) ──
+function CodexBanner({ entry, height = 200, onUpload, onClear, hint = 'Upload image' }) {
+  const inputRef = cuR(null);
+  function onFile(e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    if (window.__codexUploadImage) {
+      window.__codexUploadImage(f, entry.id || 'misc')
+        .then(url => onUpload(url))
+        .catch(err => { console.error('Upload failed', err); alert('Image upload failed: ' + err.message); });
+    } else {
+      const r = new FileReader();
+      r.onload = (ev) => onUpload(ev.target.result);
+      r.readAsDataURL(f);
+    }
+    e.target.value = '';
+  }
+  const has = !!entry.image;
+  return (
+    <div className={`codex-banner ${has ? 'has-img' : ''}`} style={{ height }} onClick={() => inputRef.current && inputRef.current.click()}>
+      {has ? (
+        <>
+          <img src={entry.image} alt={entry.name} />
+          <button
+            className="banner-clear"
+            onClick={(e) => { e.stopPropagation(); if (confirm('Remove the image?')) onClear(); }}
+            title="Remove image"
+          >×</button>
+        </>
+      ) : (
+        <div className="banner-empty">
+          <CodexHeraldic kind={entry.kind} size={56} />
+          <div className="banner-hint">{hint}</div>
+        </div>
+      )}
+      <input ref={inputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={onFile} />
+    </div>
+  );
+}
+
+// ── Linked-entry list (resolves names to entries; click to jump) ──
+// `kindFilter`: 'Character' | 'Faction' | 'Location' | null (any)
+function LinkedEntryList({ items, allEntries, kindFilter, onJump, onChange, addLabel = '+ Add link', editing }) {
+  const [draftName, setDraftName] = cuS('');
+  const [draftNote, setDraftNote] = cuS('');
+
+  function add() {
+    const n = draftName.trim();
+    if (!n) return;
+    onChange([...(items || []), { name: n, note: draftNote.trim() }]);
+    setDraftName(''); setDraftNote('');
+  }
+  function remove(i) {
+    const next = [...(items || [])];
+    next.splice(i, 1);
+    onChange(next);
+  }
+  function updateNote(i, v) {
+    const next = [...(items || [])];
+    next[i] = { ...next[i], note: v };
+    onChange(next);
+  }
+
+  // Build datalist suggestions from existing entries of the right kind.
+  const suggestions = (allEntries || []).filter(e => !kindFilter || e.kind === kindFilter);
+  const dlId = `dl-${kindFilter || 'any'}-${Math.random().toString(36).slice(2, 6)}`;
+
+  return (
+    <div className="linked-list">
+      {(items || []).length === 0 && !editing && (
+        <div className="linked-empty">— none —</div>
+      )}
+      <div className="linked-chips">
+        {(items || []).map((it, i) => {
+          const target = (allEntries || []).find(e =>
+            e.name.toLowerCase() === it.name.toLowerCase() &&
+            (!kindFilter || e.kind === kindFilter)
+          );
+          const exists = !!target;
+          return (
+            <div key={i} className={`linked-chip ${exists ? 'exists' : 'missing'}`}>
+              {exists ? (
+                <button className="linked-chip-name" onClick={() => onJump(target)} title={`Open ${target.name}`}>
+                  {it.name} <span className="link-arrow">↗</span>
+                </button>
+              ) : (
+                <span className="linked-chip-name dim" title="Not yet in the codex">{it.name}</span>
+              )}
+              {editing ? (
+                <input
+                  className="linked-chip-note-input"
+                  value={it.note || ''}
+                  placeholder="note…"
+                  onChange={e => updateNote(i, e.target.value)}
+                />
+              ) : (
+                it.note && <span className="linked-chip-note">— {it.note}</span>
+              )}
+              {editing && (
+                <button className="linked-chip-x" onClick={() => remove(i)} title="Remove">×</button>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {editing && (
+        <div className="linked-add">
+          <input
+            list={dlId}
+            placeholder={kindFilter ? `${kindFilter} name…` : 'Name…'}
+            value={draftName}
+            onChange={e => setDraftName(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') add(); }}
+          />
+          <datalist id={dlId}>
+            {suggestions.map(s => <option key={s.id} value={s.name} />)}
+          </datalist>
+          <input
+            placeholder="note (optional)"
+            value={draftNote}
+            onChange={e => setDraftNote(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') add(); }}
+          />
+          <button onClick={add}>{addLabel}</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Editable feature-style boxes (for Points of Interest, Encounter Log) ──
+function FeatureBoxes({ items, onChange, editing, addLabel = '+ Add', namePlaceholder = 'Name', textPlaceholder = 'Description' }) {
+  function update(i, patch) {
+    const next = [...(items || [])];
+    next[i] = { ...next[i], ...patch };
+    onChange(next);
+  }
+  function remove(i) {
+    onChange((items || []).filter((_, j) => j !== i));
+  }
+  function add() {
+    onChange([...(items || []), { name: '', text: '' }]);
+  }
+  return (
+    <div className="features">
+      {editing ? (
+        <>
+          {(items || []).map((it, i) => (
+            <div key={i} className="feature feature-edit">
+              <input className="edit-inline edit-feature-name" value={it.name} onChange={e => update(i, { name: e.target.value })} placeholder={namePlaceholder} />
+              <textarea className="edit-field" value={it.text} onChange={e => update(i, { text: e.target.value })} placeholder={textPlaceholder} />
+              <button className="edit-remove-btn" onClick={() => remove(i)}>Remove</button>
+            </div>
+          ))}
+          <button className="edit-add-btn" onClick={add}>{addLabel}</button>
+        </>
+      ) : (
+        (items || []).map((it, i) => (
+          <div key={i} className="feature">
+            <div className="feature-name">{it.name || '—'}</div>
+            <div className="feature-text">{it.text}</div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+// ── Kind-picker modal (for + New Entry) ──
+function KindPicker({ onPick, onCancel }) {
+  const kinds = [
+    { kind: 'Character', sub: 'A person met along the way' },
+    { kind: 'Faction', sub: 'A group, guild, or order' },
+    { kind: 'Location', sub: 'A place worth remembering' },
+  ];
+  return (
+    <div className="modal-backdrop" onClick={onCancel}>
+      <div className="modal kind-picker" onClick={e => e.stopPropagation()}>
+        <h2>New Entry</h2>
+        <div className="sub">What kind of entry shall it be?</div>
+        <div className="kind-grid">
+          {kinds.map(k => (
+            <button key={k.kind} className="kind-card" onClick={() => onPick(k.kind)}>
+              <div className="kind-sigil"><CodexHeraldic kind={k.kind} size={40} /></div>
+              <div className="kind-name">{k.kind}</div>
+              <div className="kind-sub">{k.sub}</div>
+            </button>
+          ))}
+        </div>
+        <div className="modal-actions">
+          <button className="cancel" onClick={onCancel}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { CodexHeraldic, CodexPortrait, CodexBanner, LinkedEntryList, FeatureBoxes, KindPicker });
+
+</script>
+<script type="text/babel">
+/* Campaign Codex — main app.
+ * Three entry kinds: Character, Faction, Location.
+ * State persists to localStorage.
+ */
+const { useState: cuS2, useEffect: cuE2, useMemo: cuM2 } = React;
+
+const CODEX_STORAGE_KEY = 'campaign-codex-v1';
+
+function loadCodexState() {
+  // Cloud-first: prefer the snapshot the boot loader pulled from Firestore.
+  if (window.__codexInitialState !== undefined) return window.__codexInitialState;
+  // Fallback to localStorage cache (used pre-Firebase, or offline).
+  try {
+    const raw = localStorage.getItem(CODEX_STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) { return null; }
+}
+function saveCodexState(state) {
+  // Always cache locally so the app feels instant.
+  try { localStorage.setItem(CODEX_STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  // Push to Firestore (debounced inside __codexSaveToCloud).
+  if (window.__codexSaveToCloud) window.__codexSaveToCloud(state);
+}
+
+function mergeCodexStarters(persistedEntries, persistedDeleted) {
+  const starters = window.CODEX_STARTER_ALL();
+  const deleted = new Set(persistedDeleted || []);
+  const have = new Set((persistedEntries || []).map(e => e.id));
+  const additions = starters.filter(s => !have.has(s.id) && !deleted.has(s.id));
+  return [...(persistedEntries || []), ...additions];
+}
+
+function CodexApp() {
+  const persisted = loadCodexState();
+  const initialEntries = persisted
+    ? mergeCodexStarters(persisted.entries, persisted.deletedStarters)
+    : window.CODEX_STARTER_ALL();
+
+  const [entries, setEntries] = cuS2(initialEntries);
+  const [deletedStarters, setDeletedStarters] = cuS2(persisted?.deletedStarters || []);
+  const [openSections, setOpenSections] = cuS2(new Set(persisted?.openSections || ['Character', 'Faction', 'Location']));
+  const [selectedId, setSelectedId] = cuS2(persisted?.selectedId || initialEntries[0]?.id);
+  const [search, setSearch] = cuS2('');
+  const [paperTone, setPaperTone] = cuS2(persisted?.paperTone || 'warm');
+  const [ribbons, setRibbons] = cuS2(persisted?.ribbons !== false);
+  const [tweaksOn, setTweaksOn] = cuS2(false);
+  const [picking, setPicking] = cuS2(false);
+
+  cuE2(() => {
+    saveCodexState({ entries, deletedStarters, openSections: [...openSections], selectedId, paperTone, ribbons });
+  }, [entries, deletedStarters, openSections, selectedId, paperTone, ribbons]);
+
+  cuE2(() => {
+    document.body.classList.remove('tone-warm', 'tone-cool', 'tone-cream');
+    document.body.classList.add('tone-' + paperTone);
+    document.body.classList.toggle('no-ribbons', !ribbons);
+  }, [paperTone, ribbons]);
+
+  cuE2(() => {
+    function onMsg(e) {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOn(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOn(false);
+    }
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const selected = entries.find(e => e.id === selectedId);
+
+  const grouped = cuM2(() => {
+    const q = search.trim().toLowerCase();
+    const match = (e) => !q ||
+      e.name.toLowerCase().includes(q) ||
+      (e.occupation || '').toLowerCase().includes(q) ||
+      (e.ancestry || '').toLowerCase().includes(q) ||
+      (e.description || '').toLowerCase().includes(q) ||
+      (e.backstory || '').toLowerCase().includes(q);
+    const out = { Character: [], Faction: [], Location: [] };
+    for (const e of entries) {
+      if (!out[e.kind]) out[e.kind] = [];
+      if (match(e)) out[e.kind].push(e);
+    }
+    // alphabetical
+    Object.keys(out).forEach(k => out[k].sort((a, b) => a.name.localeCompare(b.name)));
+    return out;
+  }, [entries, search]);
+
+  function toggleSection(s) {
+    const next = new Set(openSections);
+    if (next.has(s)) next.delete(s); else next.add(s);
+    setOpenSections(next);
+  }
+
+  function selectEntry(e) {
+    setSelectedId(e.id);
+    if (!openSections.has(e.kind)) setOpenSections(new Set([...openSections, e.kind]));
+  }
+
+  function jumpToByLink(target) {
+    selectEntry(target);
+  }
+
+  function blankEntry(kind) {
+    const id = kind.charAt(0).toLowerCase() + '-' + Math.random().toString(36).slice(2, 9);
+    if (kind === 'Character') {
+      return {
+        id, kind: 'Character',
+        name: 'New Character', age: '', gender: '', ancestry: '', occupation: '',
+        portrait: null, backstory: '',
+        relations: [], locations: [], factions: [], notes: '',
+      };
+    }
+    if (kind === 'Faction') {
+      return {
+        id, kind: 'Faction',
+        name: 'New Faction', image: null,
+        description: '',
+        operates: [],
+        members: [], notes: '',
+      };
+    }
+    return {
+      id, kind: 'Location',
+      name: 'New Location', image: null,
+      description: '',
+      pointsOfInterest: [], loot: '',
+      characters: [], factions: [], adversaries: [],
+      notes: '', encounters: [],
+    };
+  }
+
+  function createEntry(kind) {
+    const e = blankEntry(kind);
+    setEntries([...entries, e]);
+    setOpenSections(new Set([...openSections, kind]));
+    setSelectedId(e.id);
+    setPicking(false);
+  }
+
+  function deleteEntry(id) {
+    if (!confirm('Remove this entry from the codex?')) return;
+    setEntries(entries.filter(e => e.id !== id));
+    const isStarter = window.CODEX_STARTER_ALL().some(s => s.id === id);
+    if (isStarter && !deletedStarters.includes(id)) setDeletedStarters([...deletedStarters, id]);
+    if (selectedId === id) {
+      const next = entries.find(e => e.id !== id);
+      setSelectedId(next?.id || null);
+    }
+  }
+
+  function patchEntry(id, patch) {
+    setEntries(entries.map(e => e.id === id ? { ...e, ...patch } : e));
+  }
+
+  return (
+    <div className="binder">
+      <div className="binder-spine"></div>
+      <div className="binder-rivet-mid"></div>
+      <div className="binder-plate">The Campaign Codex</div>
+
+      <div className="binder-interior">
+        {/* LEFT */}
+        <nav className="tab-column">
+          <div className="binder-title">Codex</div>
+
+          <div className="search-wrap">
+            <input
+              className="search"
+              placeholder="search the codex…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button className="btn-new btn-new-inline" onClick={() => setPicking(true)}>+ New Entry</button>
+          </div>
+
+          <ul className="tab-list">
+            {['Character', 'Faction', 'Location'].map(kind => {
+              const list = grouped[kind] || [];
+              if (search && list.length === 0) return null;
+              const isOpen = openSections.has(kind) || (search && list.length > 0);
+              const plural = kind === 'Faction' ? 'Factions' : kind === 'Location' ? 'Locations' : 'Characters';
+              return (
+                <React.Fragment key={kind}>
+                  <li className={`cat-tab ${isOpen ? 'open' : ''}`} onClick={() => toggleSection(kind)}>
+                    <span className="tab-sigil"><CodexHeraldic kind={kind} size={18} /></span>
+                    <span>{plural}</span>
+                    <span className="count">{list.length}</span>
+                    <span className="chev" />
+                  </li>
+                  <ul className={`creature-list ${isOpen ? 'open' : ''}`}>
+                    {list.length === 0 && isOpen && (
+                      <li style={{ padding: '6px 14px 6px 42px', fontFamily: 'var(--mono)', fontSize: 10, color: 'rgba(232,213,168,0.4)', fontStyle: 'italic' }}>
+                        — empty —
+                      </li>
+                    )}
+                    {list.map(e => (
+                      <li
+                        key={e.id}
+                        className={`creature-item ${e.id === selectedId ? 'active' : ''}`}
+                        onClick={() => selectEntry(e)}
+                      >
+                        <span className="ci-dot" />
+                        <span>{e.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </React.Fragment>
+              );
+            })}
+          </ul>
+        </nav>
+
+        {/* RIGHT */}
+        <div className="page-wrap">
+          <div className="page">
+            {!selected ? (
+              <div className="empty-state">
+                <div className="empty-sigil">✦</div>
+                <h2>An unmarked page.</h2>
+                <p>Select an entry from the tabs, or press <strong>+ New Entry</strong> to begin.</p>
+              </div>
+            ) : selected.kind === 'Character' ? (
+              <CharacterPage
+                entry={selected}
+                allEntries={entries}
+                onPatch={(p) => patchEntry(selected.id, p)}
+                onDelete={() => deleteEntry(selected.id)}
+                onJump={jumpToByLink}
+              />
+            ) : selected.kind === 'Faction' ? (
+              <FactionPage
+                entry={selected}
+                allEntries={entries}
+                onPatch={(p) => patchEntry(selected.id, p)}
+                onDelete={() => deleteEntry(selected.id)}
+                onJump={jumpToByLink}
+              />
+            ) : (
+              <LocationPage
+                entry={selected}
+                allEntries={entries}
+                onPatch={(p) => patchEntry(selected.id, p)}
+                onDelete={() => deleteEntry(selected.id)}
+                onJump={jumpToByLink}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
+      {picking && <KindPicker onPick={createEntry} onCancel={() => setPicking(false)} />}
+
+      <div className={`tweaks ${tweaksOn ? 'on' : ''}`}>
+        <h4>Tweaks</h4>
+        <div className="tweak-row">
+          <label>Paper tone</label>
+          <select value={paperTone} onChange={e => setPaperTone(e.target.value)}>
+            <option value="warm">Warm</option>
+            <option value="cool">Cool</option>
+            <option value="cream">Cream</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Page header used by all three kinds ──
+function CodexHeader({ entry, editing, onStartEdit, onSaveEdit, onCancelEdit, onDelete, draft, setDraft, leftSlot, subline }) {
+  return (
+    <div className="page-header">
+      {leftSlot}
+      <div>
+        {editing ? (
+          <input
+            className="edit-name-input"
+            value={draft.name}
+            onChange={e => setDraft({ ...draft, name: e.target.value })}
+            placeholder="Name"
+          />
+        ) : (
+          <div className="page-name">{entry.name}</div>
+        )}
+        <div className="page-subline">{subline}</div>
+      </div>
+      <div className="page-actions">
+        {editing ? (
+          <>
+            <button className="page-action primary" onClick={onSaveEdit}>Save</button>
+            <button className="page-action" onClick={onCancelEdit}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <button className="page-action" onClick={onStartEdit}>Edit</button>
+            <button className="page-action danger" onClick={onDelete}>Remove</button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── CHARACTER PAGE ──
+function CharacterPage({ entry, allEntries, onPatch, onDelete, onJump }) {
+  const c = entry;
+  const [editing, setEditing] = cuS2(false);
+  const [draft, setDraft] = cuS2(c);
+  cuE2(() => { setDraft(c); setEditing(false); }, [c.id]);
+
+  const d = editing ? draft : c;
+  const up = (p) => setDraft({ ...draft, ...p });
+
+  const sublineParts = [c.ancestry, c.occupation].filter(Boolean);
+  const subline = sublineParts.length === 0 ? <span style={{ opacity: 0 }}>—</span> : (
+    <>
+      {sublineParts.map((p, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <span className="bullet">•</span>}
+          {p}
+        </React.Fragment>
+      ))}
+    </>
+  );
+
+  function save() {
+    onPatch({ ...draft });
+    setEditing(false);
+  }
+
+  return (
+    <div data-screen-label={c.name}>
+      <CodexHeader
+        entry={c}
+        editing={editing}
+        draft={draft}
+        setDraft={setDraft}
+        onStartEdit={() => { setDraft(c); setEditing(true); }}
+        onSaveEdit={save}
+        onCancelEdit={() => { setDraft(c); setEditing(false); }}
+        onDelete={onDelete}
+        leftSlot={
+          <CodexPortrait
+            entry={c}
+            onUpload={(url) => onPatch({ portrait: url })}
+            onClear={() => onPatch({ portrait: null })}
+          />
+        }
+        subline={subline}
+      />
+
+      {/* Character fields */}
+      <div className="section">
+        <div className="section-head">Particulars</div>
+        <div className="char-fields">
+          <div className="char-field">
+            <label>Age</label>
+            {editing ? (
+              <input className="edit-field" value={d.age || ''} onChange={e => up({ age: e.target.value })} />
+            ) : (
+              <div className="char-value">{c.age || <span className="dimmed">—</span>}</div>
+            )}
+          </div>
+          <div className="char-field">
+            <label>Gender</label>
+            {editing ? (
+              <input className="edit-field" value={d.gender || ''} onChange={e => up({ gender: e.target.value })} />
+            ) : (
+              <div className="char-value">{c.gender || <span className="dimmed">—</span>}</div>
+            )}
+          </div>
+          <div className="char-field">
+            <label>Ancestry</label>
+            {editing ? (
+              <input className="edit-field" value={d.ancestry || ''} onChange={e => up({ ancestry: e.target.value })} />
+            ) : (
+              <div className="char-value">{c.ancestry || <span className="dimmed">—</span>}</div>
+            )}
+          </div>
+          <div className="char-field">
+            <label>Occupation</label>
+            {editing ? (
+              <input className="edit-field" value={d.occupation || ''} onChange={e => up({ occupation: e.target.value })} />
+            ) : (
+              <div className="char-value">{c.occupation || <span className="dimmed">—</span>}</div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Backstory */}
+      <div className="section">
+        <div className="section-head">Backstory & Details</div>
+        {editing ? (
+          <textarea className="edit-field" value={d.backstory || ''} onChange={e => up({ backstory: e.target.value })} placeholder="Their history, their manner, their secrets…" style={{ minHeight: 120 }} />
+        ) : (
+          <div className="description">{c.backstory || <span className="dimmed">No backstory yet.</span>}</div>
+        )}
+      </div>
+
+      {/* Relations — link to other characters */}
+      <div className="section">
+        <div className="section-head">Ties to Other Characters</div>
+        <LinkedEntryList
+          items={editing ? draft.relations : c.relations}
+          allEntries={allEntries}
+          kindFilter="Character"
+          onJump={onJump}
+          onChange={(v) => editing ? up({ relations: v }) : onPatch({ relations: v })}
+          editing={true}
+          addLabel="+ Add tie"
+        />
+      </div>
+
+      {/* Locations they can be found */}
+      <div className="section">
+        <div className="section-head">Locations</div>
+        <LinkedEntryList
+          items={editing ? draft.locations : c.locations}
+          allEntries={allEntries}
+          kindFilter="Location"
+          onJump={onJump}
+          onChange={(v) => editing ? up({ locations: v }) : onPatch({ locations: v })}
+          editing={true}
+          addLabel="+ Add location"
+        />
+      </div>
+
+      {/* Factions */}
+      <div className="section">
+        <div className="section-head">Factions</div>
+        <LinkedEntryList
+          items={editing ? draft.factions : c.factions}
+          allEntries={allEntries}
+          kindFilter="Faction"
+          onJump={onJump}
+          onChange={(v) => editing ? up({ factions: v }) : onPatch({ factions: v })}
+          editing={true}
+          addLabel="+ Add faction"
+        />
+      </div>
+
+      {/* GM notes */}
+      <div className="section">
+        <div className="section-head">GM Notes (private)</div>
+        <textarea
+          className="edit-field"
+          value={c.notes || ''}
+          onChange={e => onPatch({ notes: e.target.value })}
+          placeholder="Private notes — secrets, plot hooks, foreshadowing…"
+          style={{ minHeight: 80 }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ── FACTION PAGE ──
+function FactionPage({ entry, allEntries, onPatch, onDelete, onJump }) {
+  const f = entry;
+  const [editing, setEditing] = cuS2(false);
+  const [draft, setDraft] = cuS2(f);
+  cuE2(() => { setDraft(f); setEditing(false); }, [f.id]);
+
+  const d = editing ? draft : f;
+  const up = (p) => setDraft({ ...draft, ...p });
+
+  function save() {
+    onPatch({ ...draft });
+    setEditing(false);
+  }
+
+  return (
+    <div data-screen-label={f.name}>
+      {/* Wide image up top */}
+      <CodexBanner
+        entry={f}
+        height={180}
+        onUpload={(url) => onPatch({ image: url })}
+        onClear={() => onPatch({ image: null })}
+        hint="Upload faction sigil or image"
+      />
+
+      <div className="page-header" style={{ gridTemplateColumns: '1fr auto' }}>
+        <div>
+          {editing ? (
+            <input
+              className="edit-name-input"
+              value={draft.name}
+              onChange={e => setDraft({ ...draft, name: e.target.value })}
+              placeholder="Faction name"
+            />
+          ) : (
+            <div className="page-name">{f.name}</div>
+          )}
+          <div className="page-subline"><span style={{ opacity: 0 }}>—</span></div>
+        </div>
+        <div className="page-actions">
+          {editing ? (
+            <>
+              <button className="page-action primary" onClick={save}>Save</button>
+              <button className="page-action" onClick={() => { setDraft(f); setEditing(false); }}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <button className="page-action" onClick={() => { setDraft(f); setEditing(true); }}>Edit</button>
+              <button className="page-action danger" onClick={onDelete}>Remove</button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-head">Description</div>
+        {editing ? (
+          <textarea className="edit-field" value={d.description || ''} onChange={e => up({ description: e.target.value })} placeholder="What they stand for, what they want, who they are…" style={{ minHeight: 110 }} />
+        ) : (
+          <div className="description">{f.description || <span className="dimmed">No description yet.</span>}</div>
+        )}
+      </div>
+
+      <div className="section">
+        <div className="section-head">Where They Operate</div>
+        <LinkedEntryList
+          items={f.operates}
+          allEntries={allEntries}
+          kindFilter="Location"
+          onJump={onJump}
+          onChange={(v) => onPatch({ operates: v })}
+          editing={true}
+          addLabel="+ Add location"
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Members</div>
+        <LinkedEntryList
+          items={f.members}
+          allEntries={allEntries}
+          kindFilter="Character"
+          onJump={onJump}
+          onChange={(v) => onPatch({ members: v })}
+          editing={true}
+          addLabel="+ Add member"
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">GM Notes (private)</div>
+        <textarea
+          className="edit-field"
+          value={f.notes || ''}
+          onChange={e => onPatch({ notes: e.target.value })}
+          placeholder="Private notes — secrets, schemes, plot hooks…"
+          style={{ minHeight: 80 }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ── LOCATION PAGE ──
+function LocationPage({ entry, allEntries, onPatch, onDelete, onJump }) {
+  const l = entry;
+  const [editing, setEditing] = cuS2(false);
+  const [draft, setDraft] = cuS2(l);
+  cuE2(() => { setDraft(l); setEditing(false); }, [l.id]);
+
+  const d = editing ? draft : l;
+  const up = (p) => setDraft({ ...draft, ...p });
+
+  function save() {
+    onPatch({ ...draft });
+    setEditing(false);
+  }
+
+  return (
+    <div data-screen-label={l.name}>
+      <CodexBanner
+        entry={l}
+        height={260}
+        onUpload={(url) => onPatch({ image: url })}
+        onClear={() => onPatch({ image: null })}
+        hint="Upload area image / map"
+      />
+
+      <div className="page-header" style={{ gridTemplateColumns: '1fr auto' }}>
+        <div>
+          {editing ? (
+            <input
+              className="edit-name-input"
+              value={draft.name}
+              onChange={e => setDraft({ ...draft, name: e.target.value })}
+              placeholder="Location name"
+            />
+          ) : (
+            <div className="page-name">{l.name}</div>
+          )}
+          <div className="page-subline"><span style={{ opacity: 0 }}>—</span></div>
+        </div>
+        <div className="page-actions">
+          {editing ? (
+            <>
+              <button className="page-action primary" onClick={save}>Save</button>
+              <button className="page-action" onClick={() => { setDraft(l); setEditing(false); }}>Cancel</button>
+            </>
+          ) : (
+            <>
+              <button className="page-action" onClick={() => { setDraft(l); setEditing(true); }}>Edit</button>
+              <button className="page-action danger" onClick={onDelete}>Remove</button>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-head">Description</div>
+        {editing ? (
+          <textarea className="edit-field" value={d.description || ''} onChange={e => up({ description: e.target.value })} placeholder="What the place looks like, its mood, its people…" style={{ minHeight: 120 }} />
+        ) : (
+          <div className="description">{l.description || <span className="dimmed">No description yet.</span>}</div>
+        )}
+      </div>
+
+      <div className="section">
+        <div className="section-head">Points of Interest</div>
+        <FeatureBoxes
+          items={l.pointsOfInterest}
+          onChange={(v) => onPatch({ pointsOfInterest: v })}
+          editing={true}
+          addLabel="+ Add point of interest"
+          namePlaceholder="Name (e.g. The Old Bridge)"
+          textPlaceholder="What is here, what stands out, what players might find…"
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Loot</div>
+        <textarea
+          className="edit-field"
+          value={l.loot || ''}
+          onChange={e => onPatch({ loot: e.target.value })}
+          placeholder="Treasure, oddities, hidden caches…"
+          style={{ minHeight: 80, fontStyle: 'italic', color: 'var(--hope-deep)' }}
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Characters Here</div>
+        <LinkedEntryList
+          items={l.characters}
+          allEntries={allEntries}
+          kindFilter="Character"
+          onJump={onJump}
+          onChange={(v) => onPatch({ characters: v })}
+          editing={true}
+          addLabel="+ Add character"
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Factions Present</div>
+        <LinkedEntryList
+          items={l.factions}
+          allEntries={allEntries}
+          kindFilter="Faction"
+          onJump={onJump}
+          onChange={(v) => onPatch({ factions: v })}
+          editing={true}
+          addLabel="+ Add faction"
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Adversaries</div>
+        <LinkedEntryList
+          items={l.adversaries}
+          allEntries={allEntries}
+          kindFilter={null}
+          onJump={onJump}
+          onChange={(v) => onPatch({ adversaries: v })}
+          editing={true}
+          addLabel="+ Add adversary"
+        />
+        <div className="adv-hint">
+          <em>Tip: cross-reference these entries with the Adversary Binder.</em>
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="section-head">GM Notes (private)</div>
+        <textarea
+          className="edit-field"
+          value={l.notes || ''}
+          onChange={e => onPatch({ notes: e.target.value })}
+          placeholder="Private notes — secrets, plot hooks, hidden things…"
+          style={{ minHeight: 80 }}
+        />
+      </div>
+
+      <div className="section">
+        <div className="section-head">Encounter Log</div>
+        <FeatureBoxes
+          items={l.encounters}
+          onChange={(v) => onPatch({ encounters: v })}
+          editing={true}
+          addLabel="+ Add encounter"
+          namePlaceholder="Session / title"
+          textPlaceholder="What happened here this session…"
+        />
+      </div>
+    </div>
+  );
+}
+
+// Render is triggered by the Firebase boot loader (see firebase-boot script).
+window.__codexRender = function () {
+  ReactDOM.createRoot(document.getElementById('root')).render(<CodexApp />);
+};
+if (window.__codexReady) window.__codexRender();
+
+</script>
+
+
+
+</body></html>
